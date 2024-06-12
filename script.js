@@ -14,7 +14,7 @@ const LINE_THICKNESS = 6;
 const LINE_DASH_PATTERN = [5, 5];
 const CENTER_LINE_THICKNESS = 2;
 
-const AI_SPEED = 0.29;
+const AI_SPEED = 0.5;
 
 const PLAYING = 1;
 
@@ -102,6 +102,9 @@ function update() {
     if (ball.direction.x < 0) {
         const ball_pos_cmp = Math.sign((paddles[0].y + PADDLE_HEIGHT / 2) - ball.position.y);
         paddles[0].y = clamp(lerp(paddles[0].y, paddles[0].y + (-ball_pos_cmp * PADDLE_SPEED), AI_SPEED), 0, canvas.height - PADDLE_HEIGHT);
+    } else {
+        const ball_pos_cmp = Math.sign((paddles[1].y + PADDLE_HEIGHT / 2) - ball.position.y);
+        paddles[1].y = clamp(lerp(paddles[1].y, paddles[1].y + (-ball_pos_cmp * PADDLE_SPEED), AI_SPEED), 0, canvas.height - PADDLE_HEIGHT);    
     }
 
     // Ball update
