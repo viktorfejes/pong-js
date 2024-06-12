@@ -1,20 +1,23 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+const speed_el = document.getElementById("speed");
+const ai_el = document.getElementById("ai");
+
 const PADDLE_WIDTH = 14;
 const PADDLE_HEIGHT = 80;
 const PADDLE_SPEED = 6;
 const PADDLE_PADDING = canvas.width * 0.1;
 
 const BALL_SIZE = 20;
-const BALL_SPEED = 4;
+let BALL_SPEED = speed_el.value;
 const BALL_INIT_DIR = normalize_vec(Math.random() * 1.5, Math.random());
 
 const LINE_THICKNESS = 6;
 const LINE_DASH_PATTERN = [5, 5];
 const CENTER_LINE_THICKNESS = 2;
 
-const AI_SPEED = 0.5;
+let AI_SPEED = ai_el.value;
 
 const PLAYING = 1;
 
@@ -168,6 +171,14 @@ function run() {
 
     // setTimeout(run, 1000 / 60);
 }
+
+speed_el.addEventListener("change",  (e) => {
+    BALL_SPEED = e.target.value;
+});
+
+ai_el.addEventListener("change",  (e) => {
+    AI_SPEED = e.target.value;
+});
 
 document.addEventListener("keydown", (e) => {
     key_state[e.code] = true;
