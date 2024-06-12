@@ -1,8 +1,10 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const speed_el = document.getElementById("speed");
-const ai_el = document.getElementById("ai");
+const speed_el = document.getElementById("slider-1-hidden");
+const ai_el = document.getElementById("slider-2-hidden");
+
+const reset_btn = document.getElementById("reset-button");
 
 const PADDLE_WIDTH = 14;
 const PADDLE_HEIGHT = 80;
@@ -172,6 +174,15 @@ function run() {
     // setTimeout(run, 1000 / 60);
 }
 
+reset_btn.addEventListener("pointerup", (e) => {
+    game_state.score = [0,0];
+
+    game_state.paddles[0].y =  canvas.height / 2 - PADDLE_HEIGHT / 2;
+    game_state.paddles[1].y =  canvas.height / 2 - PADDLE_HEIGHT / 2;
+
+    reset_ball();
+});
+
 speed_el.addEventListener("change",  (e) => {
     BALL_SPEED = e.target.value;
 });
@@ -189,5 +200,33 @@ document.addEventListener("keyup", (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", (e) => {
+    canvas.width = clamp(document.documentElement.clientWidth - 60, 10, 1024);
+    canvas.height = canvas.width;
+
+    game_state.paddles[1].x = canvas.width - PADDLE_PADDING;
+
+    // const game_state = {
+    //     state: PLAYING,
+    //     score: [ 0, 0 ],
+    //     paddles: [
+    //         {
+    //             x: PADDLE_PADDING,
+    //             y: canvas.height / 2 - PADDLE_HEIGHT / 2,
+    //         },
+    //         {
+    //             x: canvas.width - PADDLE_PADDING,
+    //             y: canvas.height / 2 - PADDLE_HEIGHT / 2,
+    //         }
+    //     ],
+    //     ball: {
+    //         position: {
+    //             x: canvas.width / 2 - BALL_SIZE / 2,
+    //             y: canvas.height / 2 - BALL_SIZE / 2,
+    //         },
+    //         direction: BALL_INIT_DIR
+    //     },
+    //     last_key: "",
+    // };
+
     run();
 });
